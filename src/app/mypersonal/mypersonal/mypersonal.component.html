@@ -1,0 +1,76 @@
+<List [className]="'my-list'" [renderHeader]=(renderHeader) >
+
+  <ListItem [thumb]="user" multipleLine   (onClick)="onClick('personalinfo')" [extra]="percent" [arrow]="'horizontal'">
+    个人信息
+  </ListItem>
+  <ng-template #user>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-user"></use>
+    </svg>
+  </ng-template>
+
+  <ListItem [thumb]="user" multipleLine   (onClick)="onClick('employeeinfo')" [extra]="percent" [arrow]="'horizontal'">
+  任职受雇信息
+</ListItem>
+  <ng-template #user>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-user"></use>
+    </svg>
+  </ng-template>
+
+  <ListItem [thumb]="user" multipleLine   (onClick)="onClick('familyinfo')" [extra]="percent" [arrow]="'horizontal'">
+    家庭成员信息
+  </ListItem>
+  <ng-template #user>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-user"></use>
+    </svg>
+  </ng-template>
+
+  <ListItem [thumb]="creditcard" multipleLine   (onClick)="onClick('bankcard')" [extra]="percent" [arrow]="'horizontal'">
+    银行卡
+  </ListItem>
+  <ng-template #creditcard>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-creditcard"></use>
+    </svg>
+  </ng-template>
+
+  <ListItem [thumb]="lock" multipleLine   (onClick)="onClick('security')" [extra]="percent" [arrow]="'horizontal'">
+    安全中心
+  </ListItem>
+  <ng-template #lock>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-lock"></use>
+    </svg>
+  </ng-template>
+
+  <ListItem [thumb]="lock" multipleLine   (onClick)="onClick('address')" [extra]="address" [arrow]="'horizontal'">
+    工作地或常住地
+  </ListItem>
+  <ng-template #lock>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-lock"></use>
+    </svg>
+  </ng-template>
+
+  <ListItem [thumb]="help" multipleLine   (onClick)="onClick('help')"  [arrow]="'horizontal'">
+    帮助
+  </ListItem>
+  <ng-template #help>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-help"></use>
+    </svg>
+  </ng-template>
+
+  <ListItem multipleLine  (onClick)="onClick('aboutus')" [thumb]="menufold" [arrow]="'horizontal'">
+  关于
+</ListItem>
+  <ng-template #menufold>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-menufold"></use>
+    </svg>
+  </ng-template>
+
+  <div Button [type]="'primary'" (onClick)="onClick('logout')">退出登录</div>
+

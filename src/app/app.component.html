@@ -1,0 +1,61 @@
+<router-outlet></router-outlet>
+<TabBar
+  tabBarPosition="bottom"
+  prerenderingSiblingsNumber="0"
+  [activeTab]="'1'"
+>
+  <TabPane style="background-color: white; text-align: center; height: 100%" [title]='custom1'>
+    <ng-template #custom1>
+      <TabBarTab
+        [icon]="homeicon"
+        [selectedIcon]="homeicon"
+        title="首页"
+        key="1"
+        (onPress)="doAction('Home')"
+      >
+      </TabBarTab>
+    </ng-template>
+    <ng-template #homeicon>
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-home"></use>
+      </svg>
+    </ng-template>
+  </TabPane>
+
+  <TabPane style="background-color: white; text-align: center; height: 100%" [title]='custom2'>
+    <ng-template #custom2>
+      <TabBarTab
+        [icon]="search"
+        [selectedIcon]="search"
+        title="查询"
+        key="2"
+        (onPress)="doAction('search')"
+      >
+      </TabBarTab>
+    </ng-template>
+    <ng-template #search>
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-search1"></use>
+      </svg>
+    </ng-template>
+  </TabPane>
+
+  <TabPane style="background-color: white; text-align: center; height: 100%" [title]='custom3'>
+    <ng-template #custom3>
+      <TabBarTab
+        [icon]="setting"
+        [selectedIcon]="setting"
+        title="个人中心"
+        key="2"
+        (onPress)="doAction('Mypersonal')"
+      >
+      </TabBarTab>
+    </ng-template>
+    <ng-template #setting>
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-setting"></use>
+      </svg>
+    </ng-template>
+  </TabPane>
+
+</TabBar>

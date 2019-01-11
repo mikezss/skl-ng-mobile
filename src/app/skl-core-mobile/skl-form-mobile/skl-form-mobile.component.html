@@ -1,0 +1,286 @@
+<ng-container *ngIf="hasnavbar==true">
+  <Navbar
+    [icon]="icon"
+    [mode]="'light'"
+    (onLeftClick)="onLeftClick()"
+  >
+    {{formtitle|translate}}
+  </Navbar>
+  <ng-template #icon>
+    <ng-container *ngIf="hasreturn==true">
+    <Icon [type]="'left'"></Icon>
+    </ng-container>
+  </ng-template>
+</ng-container>
+
+<List [renderHeader]="renderHeader">
+  <ng-container *ngFor="let colname of formcolnames">
+    <ng-container [ngSwitch]="colname.Controltype">
+      <WhiteSpace *ngSwitchCase="'whitespace'" [size]="colname.size"></WhiteSpace>
+      <WingBlank *ngSwitchCase="'wingblank'" [size]="colname.size"></WingBlank>
+
+
+
+      <ng-container *ngSwitchCase="'listitem'">
+        <ListItem
+                  [extra]="colname.extra"
+                  [arrow]="colname.arrow"
+        ><span [class]="colname.class">{{colname.Controlname|translate}}</span>
+        </ListItem>
+      </ng-container>
+      <WingBlank >
+      <div *ngSwitchCase="'button'"
+           Button
+           [type]="colname.type"
+           [size]="colname.size"
+           [disabled]="colname.disabled"
+           [inline]="colname.inline"
+           [loading]="colname.loading"
+           [icon]="colname.icon"
+           (onClick)="doAction(colname.Controlname)">
+        {{colname.Controlname|translate}}
+      </div>
+      </WingBlank>
+
+      <ng-container *ngSwitchCase="'picker'">
+        <ListItem Picker
+                  [extra]="getextra(formdata[colname.Controlname])"
+                  [arrow]="'horizontal'"
+                  [data]="colname.data"
+                  [title]="colname.title"
+                  [(ngModel)]="formdata[colname.Controlname]"
+                  (ngModelChange)="formdataonchange(colname.Controlname)"
+        >
+          {{colname.Controlname|translate}}
+        </ListItem>
+        <ng-template #colname.Controlname>
+        </ng-template>
+      </ng-container>
+
+
+
+      <PickerView *ngSwitchCase="'pickerview'"
+                  [data]="colname.data"
+                  [(ngModel)]="formdata[colname.Controlname]"
+                  (ngModelChange)="formdataonchange(colname.Controlname)"
+      ></PickerView>
+
+      <ListItem *ngSwitchCase="'datepicker'"
+                DatePicker
+                [thumb]="colname.thumb"
+                [extra]="formdata[colname.Controlname]|date:'yyyy-MM-dd'"
+                [arrow]="colname.arrow"
+                [multipleLine]="colname.multipleLine"
+                [mode]="colname.mode"
+                [(ngModel)]="formdata[colname.Controlname]"
+                (onOk)="doAction(colname.Controlname)"
+                (onValueChange)="formdataonchange(colname.Controlname)"
+      >
+        {{colname.Controlname|translate}}
+      </ListItem>
+
+
+
+      <DatePickerView *ngSwitchCase="'datepickerview'"
+                      [mode]="colname.mode"
+                      [minDate]="colname.minDate"
+                      [maxDate]="colname.maxDate"
+                      [disabled]="colname.disabled"
+                      [(ngModel)]="formdata[colname.Controlname]"
+                      (onValueChange)="formdataonchange(colname.Controlname)"></DatePickerView>
+
+      <CheckboxItem *ngSwitchCase="'checkbox'"
+                    [name]="colname.Controlname"
+                    [(ngModel)]="formdata[colname.Controlname]"
+                    [disabled]="colname.disabled"
+                    (onChange)="formdataonchange(colname.Controlname)"
+      ></CheckboxItem>
+      <AgreeItem *ngSwitchCase="'agreeitem'"
+                 [name]="colname.Controlname"
+                 [(ngModel)]="formdata[colname.Controlname]"
+                 (onChange)="formdataonchange(colname.Controlname)"
+      >
+        {{colname.Controlname|translate}} <a (click)="doAction(colname.Controlname)">{{'agreement'|translate}}</a>
+      </AgreeItem>
+
+
+      <ImagePicker *ngSwitchCase="'imagepicker'"
+                   [(files)]="colname.files"
+                   [length]="colname.length"
+                   [selectable]="colname.selectable"
+                   [multiple]="colname.ismultiple?colname.ismultiple:false"
+                   [accept]="colname.accept"
+                   (onChange)="formdataonchange(colname.Controlname)"
+                   (onImageClick)="doAction(colname.Controlname)"
+                   (onAddImageClick)="doAction(colname.Controlname)"
+      ></ImagePicker>
+
+      <InputItem *ngSwitchCase="'inputitem'"
+                 [type]="colname.type"
+                 [clear]="colname.clear"
+                 [placeholder]="colname.placeholder"
+                 [maxLength]="colname.maxLength"
+                 [moneyKeyboardAlign]="colname.align"
+                 [(ngModel)]="formdata[colname.Controlname]"
+                 [defaultValue]="colname.defaultValue"
+                 [editable]="colname.NotEditable?false:true"
+                 [disabled]="colname.NotEditable?true:false"
+                 (onChange)="formdataonchange(colname.Controlname)"
+                 [focus]="autoFocus"
+      >{{colname.Controlname|translate}}：
+      </InputItem>
+
+      <RadioItem *ngSwitchCase="'radio'"
+                 [name]="colname.Controlname"
+                 [(value)]="formdata[colname.Controlname]"
+                 [disabled]="colname.disabled"
+                 (onChange)="formdataonchange(colname.Controlname)"
+                 (onClick)="doAction(colname.Controlname)"
+      >
+        {{colname.Controlname|translate}}
+      </RadioItem>
+
+      <RadioItemGroup *ngSwitchCase="'radiogroup'" [(ngModel)]="formdata[colname.Controlname]"
+                      (onChange)="formdataonchange(colname.Controlname)">
+        <RadioItem *ngFor="let option of colname.radiogroup"
+                   [name]="option.name"
+                   [value]="option.value"
+                   [disabled]="option.disabled"
+        >
+          {{option.name}}
+          <Brief>{{option.extra}}</Brief>
+        </RadioItem>
+      </RadioItemGroup>
+
+
+      <TextareaItem *ngSwitchCase="'textarea'"
+                    [placeholder]="colname.placeholder"
+                    [title]="colname.title"
+                    [autoHeight]="colname.autoHeight"
+                    [editable]="colname.editable"
+                    [disabled]="colname.disabled"
+                    [(ngModel)]="formdata[colname.Controlname]"
+                    [clear]="colname.clear"
+                    [rows]="colname.rows"
+                    (onChange)="formdataonchange(colname.Controlname)"
+
+      ></TextareaItem>
+
+      <ng-container *ngSwitchCase="'switch'">
+        <ListItem multipleLine [extra]="colname.Controlname">
+          {{colname.Controlname|translate}}
+        </ListItem>
+        <ng-template #colname.Controlname>
+          <Switch [checked]="colname.checked"
+                  [disabled]="colname.disabled"
+                  [(ngModel)]="formdata[colname.Controlname]"
+                  (onChange)="formdataonchange(colname.Controlname)"
+                  (onClick)="doAction(colname.Controlname)"
+          >
+          </Switch>
+        </ng-template>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'stepper'">
+        <ListItem multipleLine [extra]="colname.Controlname">
+          {{colname.Controlname|translate}}
+        </ListItem>
+        <ng-template #colname.Controlname>
+          <Stepper
+            [min]="colname.min"
+            [max]="colname.max"
+            [step]="colname.step"
+            [defaultValue]="colname.defaultValue"
+            [disabled]="colname.disabled"
+            [readOnly]="colname.readOnly"
+            [showNumber]="colname.showNumber"
+            [(ngModel)]="formdata[colname.Controlname]"
+            (ngModelChange)="formdataonchange(colname.Controlname)"
+          >
+          </Stepper>
+        </ng-template>
+      </ng-container>
+
+      <Slider *ngSwitchCase="'slider'"
+              [min]="colname.min"
+              [max]="colname.max"
+              [step]="colname.step"
+              [defaultValue]="colname.defaultValue"
+              [disabled]="colname.disabled"
+              [(ngModel)]="formdata[colname.Controlname]"
+              (ngModelChange)="formdataonchange(colname.Controlname)"
+              (onAfterChange)="formdataonchange(colname.Controlname)"
+      >
+      </Slider>
+
+      <Range *ngSwitchCase="'range'"
+             [min]="colname.min"
+             [max]="colname.max"
+             [step]="colname.step"
+             [defaultValue]="colname.defaultValue"
+             [disabled]="colname.disabled"
+             [(ngModel)]="formdata[colname.Controlname]"
+             (ngModelChange)="formdataonchange(colname.Controlname)"
+             (onAfterChange)="formdataonchange(colname.Controlname)"
+      >
+      </Range>
+
+      <SearchBar *ngSwitchCase="'searchbar'"
+                 [placeholder]="colname.placeholder"
+                 [maxLength]="colname.maxLength"
+                 [(ngModel)]="formdata[colname.Controlname]"
+                 (ngModelChange)="formdataonchange(colname.Controlname)"
+                 (onSubmit)="doAction(colname.Controlname)"
+                 (onCancel)="docancelAction(colname.Controlname)"
+                 (onChange)="docancelAction(colname.Controlname)"
+                 [showCancelButton]="colname.showCancelButton"
+                 [cancelText]="colname.cancelText"
+                 [disabled]="colname.disabled"
+
+      ></SearchBar>
+      <Badge *ngSwitchCase="'badge'"
+             [size]="colname.size"
+             [text]="colname.text"
+             [corner]="colname.corner"
+             [dot]="colname.dot"
+             [overflowCount]="colname.overflowCount"
+             [hot]="colname.hot"
+      >
+
+      </Badge>
+      <Icon *ngSwitchCase="'icon'"
+            [type]="colname.type"
+      ></Icon>
+      <ListItem *ngSwitchCase="'qrcode'"
+        [extra]="qrcode"
+      >{{colname.Controlname|translate}}
+      </ListItem>
+      <ng-template #qrcode>
+      <qrcode [qrdata]="colname.qrdata" [size]="colname.size" [level]="colname.level" [usesvg]="colname.usesvg">
+      </qrcode>
+      </ng-template>
+
+      <ListItem *ngSwitchCase="'image'"
+
+      ><img  [src]="colname.src"  />
+      </ListItem>
+      <ng-template #image>
+        <img  [src]="colname.src"/>
+      </ng-template>
+
+      <InputItem *ngSwitchDefault
+                 [type]="'text'"
+                 [clear]="colname.clear"
+                 [placeholder]="colname.placeholder"
+                 [extra]="colname.extra"
+                 [(value)]="formdata[colname.Controlname]"
+                 [defaultValue]="colname.defaultValue"
+                 [editable]="colname.NotEditable?false:true"
+                 [disabled]="colname.NotEditable?true:false"
+                 (onChange)="formdataonchange(colname.Controlname)"
+      >{{colname.Controlname|translate}}
+      </InputItem>
+
+    </ng-container>
+  </ng-container>
+</List>

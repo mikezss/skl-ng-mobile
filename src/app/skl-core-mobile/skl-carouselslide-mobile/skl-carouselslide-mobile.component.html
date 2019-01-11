@@ -1,0 +1,13 @@
+<WingBlank>
+  <Carousel [infinite]="infinite"
+            [autoplay]="autoplay"
+            [autoplayInterval]="autoplayInterval"
+            [vertical]="vertical"
+  >
+    <CarouselSlide *ngFor="let item of data">
+      <div style="display: inline-block; width: 100%;" [ngStyle]="{'height': height}">
+        <img [src]="item.url" style="width: 100%;" (click)="doClick(item)"/>
+      </div>
+    </CarouselSlide>
+  </Carousel>
+</WingBlank>

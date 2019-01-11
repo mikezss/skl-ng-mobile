@@ -1,0 +1,18 @@
+<ng-template #sidebar>
+  <List>
+    <ListItem  [multipleLine]="'true'"
+              [thumb]="thumb">
+      {{title|translate}}
+    </ListItem >
+    <ListItem  *ngFor="let data1 of data ;"
+              [thumb]="data1.thumb"
+              [extra]="data1.extratitle"
+              [arrow]="data1.arrow"
+              [multipleLine]="data1.multipleLine"
+              (onClick)="doAction(data1)"
+    >
+      {{data1.title|translate}}
+    </ListItem >
+  </List>
+</ng-template>
+<Drawer [sidebar]="sidebar"></Drawer>

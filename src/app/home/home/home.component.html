@@ -1,0 +1,81 @@
+<Navbar
+  [icon]="icon"
+  [mode]="'light'"
+  [rightContent]="popover"
+  (onLeftClick)="onOpenChange($event)"
+>skl-ng-mobile
+</Navbar>
+<ng-template #icon>
+  <svg class="icon" aria-hidden="true">
+    <use xlink:href="#icon-menu-fold"></use>
+  </svg>
+</ng-template>
+<Drawer class="my-drawer"
+        [ngStyle]="{minHeight: height+'px'}"
+        [contentStyle]="{ color: '#A6A6A6', textAlign: 'center', paddingTop: '42px' }"
+        [enableDragHandle]="false"
+        [sidebar]="sidebar"
+        [open]="showdrawer"
+        docked="true"
+        (onOpenChange)="onOpenChange($event)"
+>
+</Drawer>
+<ng-template #sidebar>
+  <List>
+    <ListItem multipleLine  (onClick)="onClick('help')" [thumb]="helpicon">
+      帮助
+    </ListItem>
+    <ListItem multipleLine  (onClick)="onClick('logout')" [thumb]="logouticon">
+      退出
+    </ListItem>
+  </List>
+</ng-template>
+<ng-template #helpicon>
+  <Icon [src]="'https://gw.alipayobjects.com/zos/rmsportal/uQIYTFeRrjPELImDRrPt.svg'" [size]="'xs'"></Icon>
+</ng-template>
+<ng-template #logouticon>
+  <svg class="icon" aria-hidden="true">
+    <use xlink:href="#icon-logout"></use>
+  </svg>
+</ng-template>
+
+<ng-template #popover>
+  <Icon Popover
+        [ngStyle]="{'display': 'flex', 'align-items': 'center'}"
+        [mask]="true"
+        [showArrow]="true"
+        [overlay]="overlay"
+        [type]="'ellipsis'"
+        [placement]="'bottomRight'"
+        (onSelect)="onSelect($event)"
+        (onVisibleChange)="onVisibleChange($event)"
+  ></Icon>
+</ng-template>
+
+<ng-template #overlay>
+  <PopoverItem [icon]="messageicon" [ngStyle]="{'whiteSpace': 'nowrap'}">我的消息</PopoverItem>
+  <PopoverItem [icon]="Scan">Scan</PopoverItem>
+</ng-template>
+
+<ng-template #Scan>
+  <Icon [src]="'https://gw.alipayobjects.com/zos/rmsportal/tOtXhkIWzwotgGSeptou.svg'" [size]="'xs'"></Icon>
+</ng-template>
+
+<ng-template #messageicon>
+  <svg class="icon" aria-hidden="true">
+    <use xlink:href="#icon-message1"></use>
+  </svg>
+</ng-template>
+
+<app-skl-carouselslide-mobile
+  [data]="carouselslidedata"
+  [height]="carouselslideheight"
+  (clickimage)="doclickcarouselslide($event)"
+>
+</app-skl-carouselslide-mobile>
+
+<Grid [data]="data" [columnNum]="2" (OnClick)="dogrid($event)"></Grid>
+
+<router-outlet></router-outlet>
+
+

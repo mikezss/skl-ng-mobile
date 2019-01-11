@@ -1,0 +1,23 @@
+<Navbar [icon]="icon"
+        [mode]="'light'"
+        (onLeftClick)="onLeftClick()"
+>
+  消息中心
+</Navbar>
+<ng-template #icon>
+  <Icon [type]="'left'"></Icon>
+</ng-template>
+<List [className]="'my-list'" [renderHeader]=(renderHeader)>
+  <ListItem multipleLine [arrow]="'horizontal'" (onClick)="onClick('mymessage')">
+    Title
+    <Brief>subtitle</Brief>
+  </ListItem>
+  <ListItem multipleLine
+            [arrow]="'horizontal'"
+            [platform]="'android'"
+            (onClick)="onClick('android')"
+  >
+    ListItem （Android）
+    <Brief>There may have water ripple effect of <br/> material if you set the onClick event.</Brief>
+  </ListItem>
+</List>

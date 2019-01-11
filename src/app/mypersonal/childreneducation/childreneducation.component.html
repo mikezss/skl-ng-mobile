@@ -1,0 +1,53 @@
+<Navbar
+  [icon]="icon"
+  [mode]="'light'"
+  (onLeftClick)="onLeftClick()"
+>子女教育
+</Navbar>
+<ng-template #icon>
+  <Icon [type]="'left'"></Icon>
+</ng-template>
+
+<app-skl-step-mobile
+  [size]="'small'"
+  [current]="current"
+  [status]="status"
+  [steps]="steps"
+>
+</app-skl-step-mobile>
+
+<app-skl-form-mobile
+  *ngIf="current==0"
+  [hasnavbar]="false"
+  [hasreturn]="false"
+  [formtitle]="'myinfo'|translate"
+  [formcolnames]="myinfoformcolnames"
+  [(formdata)]="myinfoformdata"
+  (action)="doaction($event)"
+  (cancelaction)="docancelaction($event)"
+  (formdatachange)="formdatachange($event)"
+>
+</app-skl-form-mobile>
+
+<app-skl-form-mobile
+  *ngIf="current==1"
+  [hasnavbar]="false"
+  [hasreturn]="false"
+  [formtitle]="'educationinfo'|translate"
+  [formcolnames]="eductioninfoformcolnames"
+  [(formdata)]="educationinfoformdata"
+  (action)="doaction($event)"
+  (cancelaction)="docancelaction($event)"
+  (formdatachange)="formdatachange($event)"
+>
+</app-skl-form-mobile>
+
+<WingBlank>
+  <div
+    Button
+    type="primary"
+    (onClick)="doAction()">
+    {{'Nextstep'|translate}}
+  </div>
+</WingBlank>
+
