@@ -22,7 +22,7 @@
 
 ## Usage  
 * ng serve  --host 0.0.0.0 --port 4208 
-* open url(http://localhost:4208/) in mobile browser(uc/chrome/firefox and so on)  
+* open url(http://localhost:4208/)(replace localhost with your pc ip) in mobile browser(uc/chrome/firefox and so on)  
 
 ## License  
 * MIT  
